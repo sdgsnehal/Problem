@@ -1,0 +1,62 @@
+ Solution Explanation
+ The code iterates through the blocks and finds the distance to each building that satisfies the requirement.
+ It then updates minDistance and optimalIndex if necessary.
+ The code iterates through the blocks and finds the distance to the nearest building that satisfies the requirement.
+ The code then updates the minimum distance and optimal index if necessary.
+
+function optimalBlock(blocks, reqs) {
+  // Initialize the minimum distance to be the maximum possible distance
+  let minDistance = blocks.length;
+  // Initialize the optimal block index to be an invalid value
+  let optimalIndex = -1;
+
+  // Iterate through the blocks
+  for (let i = 0; i < blocks.length; i++) {
+    // Initialize the maximum distance to be 0
+    let maxDistance = 0;
+    // Iterate through the requirements
+    for (let req of reqs) {
+      // Find the distance to the nearest building that satisfies the requirement
+      let distance = Math.min(...[j - i].filter(j => blocks[j][req]));
+      // Update the maximum distance if necessary
+      maxDistance = Math.max(maxDistance, distance);
+    }
+    // Update the minimum distance and the optimal index if necessary
+    if (maxDistance < minDistance) {
+      minDistance = maxDistance;
+      optimalIndex = i;
+    }
+  }
+
+  return optimalIndex;
+}
+const blocks = [
+  {
+    gym: false,
+    school: true,
+    store: false,
+  },
+  {
+    gym: true,
+    school: false,
+    store: false,
+  },
+  {
+    gym: true,
+    school: true,
+    store: false,
+  },
+  {
+    gym: false,
+    school: true,
+    store: false,
+  },
+  {
+    gym: false,
+    school: true,
+    store: true,
+  }
+];
+const reqs = ["gym", "school", "store"];
+
+console.log(optimalBlock(blocks, reqs));  // Expected output: 3
